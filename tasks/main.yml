@@ -4,7 +4,6 @@
   file:
     path: "{{ users_ssh_key_directory }}"
     state: directory
-  delegate_to: localhost
   become: no
 
 - name: loop over users_group_list

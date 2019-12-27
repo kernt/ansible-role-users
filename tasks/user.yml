@@ -1,6 +1,6 @@
 ---
 # tasks file for users
-- name: manage users {{ user.name }}
+- name: manage users "{{ user.name }}"
   user:
     name: "{{ user.name }}"
     state: "{{ user.state | default('present') }}"
@@ -44,7 +44,6 @@
     - user.manage_ssh_key
   loop_control:
     label: "{{ user.name }}"
-  delegate_to: localhost
   become: no
 
 - name: generate public ssh key for {{ user.name }}
@@ -56,7 +55,6 @@
     - user.manage_ssh_key
   loop_control:
     label: "{{ user.name }}"
-  delegate_to: localhost
   become: no
 
 - name: read generated public ssh key for {{ user.name }}
@@ -66,7 +64,6 @@
     - user.manage_ssh_key
   changed_when: no
   register: ssh_public_key
-  delegate_to: localhost
   become: no
   loop_control:
     label: "{{ user.name }}"
@@ -81,7 +78,6 @@
   when:
     - user.manage_ssh_key is defined
     - user.manage_ssh_key
-  delegate_to: localhost
   become: no
 
 - name: create .ssh directory for {{ user.name }}
